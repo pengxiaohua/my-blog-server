@@ -1,12 +1,35 @@
+const handleBlogRouter = require('./src/router/blog')
+const handleUserRouter = require('./src/router/user')
+const qs = require('querystringify')
+
 const serverHandle = (req, res) => {
     res.setHeader('Content-type', 'application/json')
 
-    const resData = {
-        name: 'pengxiaohua1',
-        site: 'life',
-        env: process.env.NODE_ENV
+    // 获取path
+    const url = req.url
+    res.path = url.split('?')[0]
+
+    // 解析 query
+    req.query = qs.parse(url.split('?')[0])
+
+    // 处理 blog 的路由
+    const blogData = handleBlogRouter(req, res)
+    if (blogData) {
+        res.end(JSON.stringify(blogData))
+        return
     }
-    res.end(JSON.stringify(resData))
+
+    // 处理 user 路由
+    const userData = handleUserRouter(req, res)
+    if (userData) {
+        res.end(JSON.stringify(userData))
+        return
+    }
+
+    // 未名中路由，404
+    res.writeHead(404, {'Content-type': 'text/plain'})
+    res.write('404 NOT FOUND\n')
+    res.end()
 }
 
 module.exports = serverHandle
