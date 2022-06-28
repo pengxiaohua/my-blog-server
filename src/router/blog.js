@@ -1,11 +1,16 @@
+const  { getList } = require('../controller/blog.js')
+const { SuccessModel, ErrorModel } = require('../model/resModel')
+
 const handleBlogRouter = (req, res) => {
     const method = req.method // GET POST
-
     // 获取博客列表
     if (method === 'GET' && req.path === '/api/blog/list') {
-        return {
-            msg: '这是获取博客列表的接口'
-        }
+        const { query: {
+            author = '',
+            keyword = ''
+        }} = req
+        const listData = getList(author, keyword)
+        return new SuccessModel(listData)
     }
 
     // 获取博客详情
