@@ -27,7 +27,16 @@ const getDetail = (id) => {
     }
 }
 
+const newBlog = (blogData = {}) => {
+    // blogData是一个博客对象数据
+    console.log({blogData});
+    return {
+        id: 3, // 表示新建博客的id
+    }
+}
+
 module.exports = {
     getList,
-    getDetail
+    getDetail,
+    newBlog
 }
