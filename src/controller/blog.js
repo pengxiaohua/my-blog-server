@@ -41,9 +41,16 @@ const updateBlog = (id, blogData = {}) => {
     return true
 }
 
+const deleteBlog = (id) => {
+    // id是更新博客的id
+    // blogData是一个博客对象数据
+    return true
+}
+
 module.exports = {
     getList,
     getDetail,
     newBlog,
-    updateBlog
+    updateBlog,
+    deleteBlog
 }
