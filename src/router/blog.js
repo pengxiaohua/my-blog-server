@@ -1,4 +1,4 @@
-const  { getList, getDetail, newBlog, updateBlog, deleteBlog } = require('../controller/blog.js')
+const  { getList, getDetail, createBlog, updateBlog, deleteBlog } = require('../controller/blog.js')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 
 const handleBlogRouter = (req, res) => {
@@ -24,8 +24,12 @@ const handleBlogRouter = (req, res) => {
     // 新建一篇博客
     if (method === 'POST' && req.path === '/api/blog/create') {
         const { body } = req
-        const data = newBlog(body)
-        return new SuccessModel(data)
+        // 暂无登录信息，使用假数据的 author
+        const author = 'xiaohua'
+        const result = createBlog({...body, author})
+        return result.then(dataList => {
+            return new SuccessModel(dataList)
+        })
     }
 
     // 更新一篇博客

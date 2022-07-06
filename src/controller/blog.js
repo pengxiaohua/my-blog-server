@@ -19,18 +19,22 @@ const getList = (author, keyword) => {
 const getDetail = (id) => {
     const sql = `select * from t_blogs where id='${id}'`
     // 返回promise
-    return exec(sql).then(rows => {
-        console.log({rows});
-        return rows[0]
-    })
+    return exec(sql).then(rows => rows[0])
 }
 
-const newBlog = (blogData = {}) => {
+const createBlog = (blogData = {}) => {
     // blogData是一个博客对象数据
-    console.log({blogData});
-    return {
-        id: 3, // 表示新建博客的id
-    }
+    const { title, content, author } = blogData
+    const create_time = Date.now()
+
+    const sql = `
+        insert into t_blogs (title, content, author, create_time)
+        values ('${title}', '${content}', '${author}', ${create_time})
+    `
+    return exec(sql).then(data => {
+        const { insertId } = data
+        return { id: insertId }
+    })
 }
 
 const updateBlog = (id, blogData = {}) => {
@@ -48,7 +52,7 @@ const deleteBlog = (id) => {
 module.exports = {
     getList,
     getDetail,
-    newBlog,
+    createBlog,
     updateBlog,
     deleteBlog
 }
