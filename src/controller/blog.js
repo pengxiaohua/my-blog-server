@@ -17,14 +17,12 @@ const getList = (author, keyword) => {
 }
 
 const getDetail = (id) => {
-    // 先返回假数据
-    return {
-        id: 1,
-        title: '标题1',
-        content: '内容1',
-        createTime: 1656438503252,
-        author: 'pengxiaohua'
-    }
+    const sql = `select * from t_blogs where id='${id}'`
+    // 返回promise
+    return exec(sql).then(rows => {
+        console.log({rows});
+        return rows[0]
+    })
 }
 
 const newBlog = (blogData = {}) => {
