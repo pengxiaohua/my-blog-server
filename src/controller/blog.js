@@ -40,7 +40,17 @@ const createBlog = (blogData = {}) => {
 const updateBlog = (id, blogData = {}) => {
     // id是更新博客的id
     // blogData是一个博客对象数据
-    return true
+    const { title, content } = blogData
+    const sql = `
+        update t_blogs set title='${title}',content='${content}' where id=${id}
+    `
+    return exec(sql).then(updateDate => {
+        const { affectedRows } = updateDate
+        if (affectedRows > 0) {
+            return true
+        }
+        return false
+    })
 }
 
 const deleteBlog = (id) => {
