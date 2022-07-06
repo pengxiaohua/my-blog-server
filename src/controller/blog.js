@@ -1,19 +1,19 @@
+const { exec } = require('../db/mysql')
+
 const getList = (author, keyword) => {
-    // 先返回假数据
-    return [
-        {
-            id: 1,
-            title: '标题1',
-            content: '内容1',
-            createTime: 1656438503272
-        },
-        {
-            id: 2,
-            title: '标题2',
-            content: '内容2',
-            createTime: 1656438503252
-        },
-    ]
+    // 1=1 是占位条件
+    let sql = `select * from t_blogs where 1=1 `
+    if (author) {
+        sql += `and author='${author}'`
+    }
+    if (keyword) {
+        sql += `and title like '%${keyword}%'`
+    }
+
+    sql += `order by create_time desc;`
+
+    // 返回promise
+    return exec(sql)
 }
 
 const getDetail = (id) => {

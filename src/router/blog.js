@@ -11,8 +11,8 @@ const handleBlogRouter = (req, res) => {
             author = '',
             keyword = ''
         }} = req
-        const listData = getList(author, keyword)
-        return new SuccessModel(listData)
+        const result = getList(author, keyword)
+        return result.then(listData => new SuccessModel(listData))
     }
 
     // 获取博客详情
