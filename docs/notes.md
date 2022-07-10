@@ -12,3 +12,6 @@
 - `insert into`, `delete`, `update`, `select`
 - `NODE_ENV`环境变量
 - 封装`exec`方法，API使用`exec`传入sql语句操作数据库
+
+#### cookie
+
