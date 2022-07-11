@@ -14,4 +14,4 @@
 - 封装`exec`方法，API使用`exec`传入sql语句操作数据库
 
 #### cookie
-
+- ```res.setHeader('Set-Cookie', `username=${username}; path=/`)```
