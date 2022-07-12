@@ -14,4 +14,9 @@
 - 封装`exec`方法，API使用`exec`传入sql语句操作数据库
 
 #### cookie
-- ```res.setHeader('Set-Cookie', `username=${username}; path=/`)```
+- 存在浏览器中的一段字符串（最大5KB）
+- 跨域不共享
+- 格式如 k1=v1;k2=v2;k3=v3; 可以存储结构化数据
+- 每次发送http请求，会将请求域的 cookie 一起发送给server
+- server 端可以修改 cookie 并返回给浏览器
+- 浏览器中也可以通过js修改 cookie（在未设置 httpOnly 的情况下）
