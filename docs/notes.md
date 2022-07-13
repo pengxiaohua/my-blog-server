@@ -20,3 +20,8 @@
 - 每次发送http请求，会将请求域的 cookie 一起发送给server
 - server 端可以修改 cookie 并返回给浏览器
 - 浏览器中也可以通过js修改 cookie（在未设置 httpOnly 的情况下）
+
+#### session
+- cookie 中存储username，会保留用户信息，不安全
+- 一般 cookie 中存储 userId，server 端对应查找相关 username
+- 解决方案：session，即：server 端存储用户信息
