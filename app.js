@@ -14,8 +14,8 @@ const getCookieExpires = () => {
 // session 数据
 const SESSION_DATA = {}
 
-// 处理 POST data
-const getPostData = (req) => {
+// 处理 Request data
+const getRequestData = (req) => {
     const promise = new Promise((resolve, reject) => {
         if (req.method !== 'POST') {
             resolve({})
@@ -81,8 +81,8 @@ const serverHandle = (req, res) => {
     }
     req.session = SESSION_DATA.userId
     
-    // 处理post data
-    getPostData(req).then(postData => {
+    // 处理 Request data
+    getRequestData(req).then(postData => {
         req.body = postData
 
         // 处理 blog 的路由
