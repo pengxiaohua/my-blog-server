@@ -1,5 +1,6 @@
 const handleBlogRouter = require('./src/router/blog')
 const handleUserRouter = require('./src/router/user')
+const { get, set } = require('./src/db/redis.js')
 const qs = require('querystringify')
 
 // 获取cookie郭琦时间
@@ -12,7 +13,7 @@ const getCookieExpires = () => {
 }
 
 // session 数据
-const SESSION_DATA = {}
+// const SESSION_DATA = {}
 
 // 处理 Request data
 const getRequestData = (req) => {
@@ -65,24 +66,53 @@ const serverHandle = (req, res) => {
         req.cookie[key] = value
     })
 
+    // let needSetCookie = false
+    // let userId = req.cookie.userId
+    // // 解析 session
+    // // cookie 中存在 userId的情况
+    // if (userId) {
+    //     if (!SESSION_DATA.userId) {
+    //         SESSION_DATA.userId = {}
+    //     }
+    // } else {
+    //     // cookie 中不存在 userId的情况
+    //     userId = `${Date.now()}_${Math.random()}`
+    //     SESSION_DATA.userId = {}
+    //     needSetCookie = true
+    // }
+    // req.session = SESSION_DATA.userId
+
+    // 使用 redis 解析 session
+    // 基本思路就是：给 req 的 session 赋值
     let needSetCookie = false
     let userId = req.cookie.userId
-    // 解析 session
-    // cookie 中存在 userId的情况
-    if (userId) {
-        if (!SESSION_DATA.userId) {
-            SESSION_DATA.userId = {}
-        }
-    } else {
+    
+    if (!userId) {
+        needSetCookie = true
         // cookie 中不存在 userId的情况
         userId = `${Date.now()}_${Math.random()}`
-        SESSION_DATA.userId = {}
-        needSetCookie = true
+        // 初始化 redis 中的 session 值
+        set(userId, {})
+        
     }
-    req.session = SESSION_DATA.userId
-    
-    // 处理 Request data
-    getRequestData(req).then(postData => {
+    // 获取 session
+    req.sessionId = userId
+    get(req.sessionId).then(sessionData => {
+        if (sessionData === null) {
+            //初始化 redis 中的 session 值
+            set(req.sessionId, {})
+            // 设置session
+            req.session = {}
+        } else {
+            // 设置session
+            req.session = sessionData
+        }
+        console.log('req.session: ', req.session);
+
+        // 处理 Request data
+        return getRequestData(req)
+    })
+    .then(postData => {
         req.body = postData
 
         // 处理 blog 的路由
