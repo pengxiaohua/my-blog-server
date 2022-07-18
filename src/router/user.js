@@ -3,11 +3,11 @@ const { SuccessModel, ErrorModel } = require('../model/resModel')
 const { set } = require('../db/redis')
 
 const handleUserRouter = (req, res) => {
-    const method = req.method // GET POST
+    const method = req.method
 
     // 登录处理
-    if (method === 'GET' && req.path === '/api/user/login') {
-        const { username, password } = req.query
+    if (method === 'POST' && req.path === '/api/user/login') {
+        const { username, password } = req.body
         const result = login(username, password)
         return result.then(data => {
             const { username } = data
