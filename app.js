@@ -12,9 +12,6 @@ const getCookieExpires = () => {
     return d.toGMTString()
 }
 
-// session 数据
-// const SESSION_DATA = {}
-
 // 处理 Request data
 const getRequestData = (req) => {
     const promise = new Promise((resolve, reject) => {
@@ -65,22 +62,6 @@ const serverHandle = (req, res) => {
         const value = arr[1].trim()
         req.cookie[key] = value
     })
-
-    // let needSetCookie = false
-    // let userId = req.cookie.userId
-    // // 解析 session
-    // // cookie 中存在 userId的情况
-    // if (userId) {
-    //     if (!SESSION_DATA.userId) {
-    //         SESSION_DATA.userId = {}
-    //     }
-    // } else {
-    //     // cookie 中不存在 userId的情况
-    //     userId = `${Date.now()}_${Math.random()}`
-    //     SESSION_DATA.userId = {}
-    //     needSetCookie = true
-    // }
-    // req.session = SESSION_DATA.userId
 
     // 使用 redis 解析 session
     // 基本思路就是：给 req 的 session 赋值
