@@ -21,12 +21,6 @@ const handleBlogRouter = (req, res) => {
             keyword = ''
         }} = req
 
-        const loginResult = loginCheck(req)
-        if (loginResult) {
-            // 未登录
-            return loginCheck
-        }
-
         const result = getList(author, keyword)
         return result.then(listData => new SuccessModel(listData))
     }
