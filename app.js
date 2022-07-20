@@ -1,7 +1,9 @@
+const qs = require('querystringify')
+
 const handleBlogRouter = require('./src/router/blog')
 const handleUserRouter = require('./src/router/user')
 const { get, set } = require('./src/db/redis.js')
-const qs = require('querystringify')
+const { access } = require('./src/util/log')
 
 // 获取cookie郭琦时间
 const getCookieExpires = () => {
@@ -40,6 +42,9 @@ const getRequestData = (req) => {
 }
 
 const serverHandle = (req, res) => {
+    // 记录 access log
+    // access(`${req.method} -- ${req.url} -- ${req.headers['user-agent']} -- ${Date.now()}`)
+
     res.setHeader('Content-type', 'application/json')
 
     // 获取path
