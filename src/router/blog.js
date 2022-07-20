@@ -1,4 +1,10 @@
-const  { getList, getDetail, createBlog, updateBlog, deleteBlog } = require('../controller/blog.js')
+const  {
+    getList,
+    getDetail,
+    createBlog,
+    updateBlog,
+    deleteBlog
+} = require('../controller/blog.js')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 
 // 通用的登录验证函数
@@ -11,7 +17,7 @@ const loginCheck = (req) => {
 }
 
 const handleBlogRouter = (req, res) => {
-    const method = req.method // GET POST
+    const method = req.method
     const { id } = req.query
 
     // 获取博客列表
