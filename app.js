@@ -43,7 +43,7 @@ const getRequestData = (req) => {
 
 const serverHandle = (req, res) => {
     // 记录 access log
-    // access(`${req.method} -- ${req.url} -- ${req.headers['user-agent']} -- ${Date.now()}`)
+    access(`${req.method} -- ${req.url} -- ${req.headers['user-agent']} -- ${Date.now()}`)
 
     res.setHeader('Content-type', 'application/json')
 
