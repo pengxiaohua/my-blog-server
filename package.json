@@ -16,6 +16,7 @@
     "nodemon": "^2.0.16"
   },
   "dependencies": {
+    "koa": "^2.13.4",
     "mysql": "^2.18.1",
     "querystringify": "^2.2.0",
     "redis": "^2.8.0"
