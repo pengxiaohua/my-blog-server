@@ -1,13 +1,17 @@
 const router = require('koa-router')()
+const { getList } = require('../controller/blog')
 
 router.prefix('/api/blog')
 
-router.get('/list', function (ctx, next) {
+router.get('/list', async function (ctx, next) {
   const { query } = ctx
+  const { author = '', keyword = '' } = query
+  const result = await getList(author, keyword)
+
   ctx.body = {
     errno: 0,
     query,
-    data: ['获取博客列表']
+    data: result
   }
 })
 
