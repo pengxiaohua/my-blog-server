@@ -1,6 +1,7 @@
 const router = require('koa-router')()
 const { getList, getDetail, createBlog, updateBlog, deleteBlog } = require('../controller/blog')
 const { ErrorModel, SuccessModel } = require('../model/resModel')
+const loginCheck = require('../middleware/loginCheck')
 
 router.prefix('/api/blog')
 
@@ -32,7 +33,7 @@ router.get('/detail', async (ctx, next) => {
 })
 
 // 创建新博客
-router.post('/create', async (ctx, next) => {
+router.post('/create', loginCheck, async (ctx, next) => {
   const { body } = ctx.request
 
   const result = await createBlog(body)
@@ -40,7 +41,7 @@ router.post('/create', async (ctx, next) => {
 })
 
 // 更新一条博客
-router.post('/update', async (ctx, next) => {
+router.post('/update', loginCheck, async (ctx, next) => {
   const { body } = ctx.request
   const { id } = ctx.query
 
@@ -54,7 +55,7 @@ router.post('/update', async (ctx, next) => {
 })
 
 // 软删除博客
-router.get('/delete', async (ctx, next) => {
+router.get('/delete', loginCheck, async (ctx, next) => {
   const { id } = ctx.query
    // 此时 result 是个Boolean值
   const result = await deleteBlog(id)
