@@ -1,7 +1,7 @@
 {
     "apps": {
         "name": "my-blog-pm2",
-        "script": "app.js",
+        "script": "bin/www",
         "watch": true,
         "ignore_watch": [
             "node_modules",
@@ -9,5 +9,6 @@
         ]
     },
     "error_file": "logs/err.log",
-    "out_file": "logs/out.log"
+    "out_file": "logs/out.log",
+    "log_date_format": "YYYY-MM-DD HH:mm:ss"
 }
