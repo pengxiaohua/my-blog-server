@@ -15,7 +15,7 @@ class BaseModel {
         }
     }
 }
-
+// 成功的返回
 class SuccessModel extends BaseModel {
     constructor(data, message) {
         super(data, message)
@@ -23,6 +23,7 @@ class SuccessModel extends BaseModel {
     }
 }
 
+// 失败的返回
 class ErrorModel extends BaseModel {
     constructor(data, message) {
         super(data, message)

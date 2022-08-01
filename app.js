@@ -70,11 +70,11 @@ app.use(session({
   })
 }))
 
-// routes
+// 路由
 app.use(user.routes(), user.allowedMethods())
 app.use(blog.routes(), blog.allowedMethods())
 
-// error-handling
+// 处理错误
 app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)
 });

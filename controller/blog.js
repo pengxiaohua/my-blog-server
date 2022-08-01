@@ -2,6 +2,7 @@ const xss = require('xss')
 
 const { exec } = require('../db/mysql')
 
+// 获取博客列表
 const getList = async (author, keyword) => {
     // 1=1 是占位条件
     let sql = `select * from t_blogs where state=1 `
@@ -18,6 +19,7 @@ const getList = async (author, keyword) => {
     return  await exec(sql)
 }
 
+// 获取博客详情
 const getDetail = async (id) => {
     const sql = `select * from t_blogs where id=${id} and state=1`
     // 返回promise
@@ -25,6 +27,7 @@ const getDetail = async (id) => {
     return rows[0]
 }
 
+// 创建新博客
 const createBlog = async (blogData = {}) => {
     // blogData是一个博客对象数据
     const title = xss(blogData.title)
@@ -42,6 +45,7 @@ const createBlog = async (blogData = {}) => {
     }
 }
 
+// 更新博客
 const updateBlog = async (id, blogData = {}) => {
     // id是更新博客的id
     // blogData是一个博客对象数据
@@ -59,6 +63,7 @@ const updateBlog = async (id, blogData = {}) => {
     return false
 }
 
+// 软删除博客，修改state
 const deleteBlog = async (id) => {
     // id是更新博客的id
     // 软删除，修改state状态
